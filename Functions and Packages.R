@@ -93,6 +93,7 @@ basic_datacleaning = function(inputdata){
   inputdata<-inputdata[!(inputdata$Country=="Indonesia"),]
   inputdata<-inputdata[!(inputdata$Country=="Malaysia"),]
   inputdata<-inputdata[!(inputdata$Country=="Thailand"),]
+  
   inputdata$Country[inputdata$Country == "Lao People's Democratic Republic (the)"] <- "Lao PDR"
   
   inputdata$decade[inputdata$decade == "1960"] <- "1960-1970"
@@ -104,6 +105,7 @@ basic_datacleaning = function(inputdata){
   inputdata$decade[inputdata$decade == "2020"] <- "2020"
   return(inputdata)
 }
+
 
 basic_datacleaning_Mekong = function(inputdata){
   inputdata[is.na(inputdata)] <- 0
@@ -118,11 +120,10 @@ basic_datacleaning_Mekong = function(inputdata){
   inputdata<-inputdata[!(inputdata$Country=="Singapore"),]
   # inputdata<-inputdata[!(inputdata$Country=="Viet Nam"),]
   inputdata<-inputdata[!(inputdata$Country=="Philippines (the)"),]
-  # inputdata<-inputdata[!(inputdata$Country=="Singapore"),]
   inputdata<-inputdata[!(inputdata$Country=="Indonesia"),]
   inputdata<-inputdata[!(inputdata$Country=="Malaysia"),]
   # inputdata<-inputdata[!(inputdata$Country=="Thailand"),]
-  inputdata$Country[inputdata$Country == "Lao People's Democratic Republic (the)"] <- "Lao PDR"
+  # inputdata$Country[inputdata$Country == "Lao People's Democratic Republic (the)"] <- "Lao PDR"
   
   inputdata$decade[inputdata$decade == "1960"] <- "1960-1970"
   inputdata$decade[inputdata$decade == "1970"] <- "1970-1980"
@@ -133,3 +134,33 @@ basic_datacleaning_Mekong = function(inputdata){
   inputdata$decade[inputdata$decade == "2020"] <- "2020"
   return(inputdata)
 }
+
+basic_datacleaning_SEA = function(inputdata){
+  inputdata[is.na(inputdata)] <- 0
+  names(inputdata)[names(inputdata) == "Country name"] <- "Country"
+  years = unique(inputdata$Year)
+  decades <- seq(min(years)-10, max(years), by=10)
+  # rm(years)
+  inputdata$decade<- decades[findInterval(inputdata$Year, decades)]
+  # rm(decades)
+  # inputdata<-inputdata[!(inputdata$Country=="Timor-Leste"),]
+  # inputdata<-inputdata[!(inputdata$Country=="Brunei Darussalam"),]
+  # inputdata<-inputdata[!(inputdata$Country=="Singapore"),]
+  # # inputdata<-inputdata[!(inputdata$Country=="Viet Nam"),]
+  # inputdata<-inputdata[!(inputdata$Country=="Philippines (the)"),]
+  # # inputdata<-inputdata[!(inputdata$Country=="Singapore"),]
+  # inputdata<-inputdata[!(inputdata$Country=="Indonesia"),]
+  # inputdata<-inputdata[!(inputdata$Country=="Malaysia"),]
+  # # inputdata<-inputdata[!(inputdata$Country=="Thailand"),]
+  # inputdata$Country[inputdata$Country == "Lao People's Democratic Republic (the)"] <- "Lao PDR"
+  
+  inputdata$decade[inputdata$decade == "1960"] <- "1960-1970"
+  inputdata$decade[inputdata$decade == "1970"] <- "1970-1980"
+  inputdata$decade[inputdata$decade == "1980"] <- "1980-1990"
+  inputdata$decade[inputdata$decade == "1990"] <- "1990-2000"
+  inputdata$decade[inputdata$decade == "2000"] <- "2000-2010"
+  inputdata$decade[inputdata$decade == "2010"] <- "2010-2020"
+  inputdata$decade[inputdata$decade == "2020"] <- "2020"
+  return(inputdata)
+}
+

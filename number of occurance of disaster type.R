@@ -8,7 +8,7 @@ cleaned_emdat = basic_datacleaning(emdat_public)
 
 # VIS 1
 output <- cleaned_emdat %>% 
-  group_by(decade, Disaster.Type) %>% tally() #group_by(decade, Country, Disaster.Type) %>% tally()
+  group_by(decade, Disaster.Subgroup) %>% tally() #group_by(decade, Country, Disaster.Type) %>% tally()
   # summarize_if(is.numeric, sum, na.rm=TRUE)
 
 # Removes all 2020 onwards data
@@ -18,13 +18,13 @@ output<-output[!(output$decade=="2020"),]
 output = output[-c(55:58), ]
 
 # Grouped
-ggplot(output, aes(fill=Disaster.Type, y=n, x=decade)) + 
-  geom_bar(position="stack", stat="identity") + #facet_grid(. ~ Country) +
+ggplot(output, aes(fill=Disaster.Subgroup, y=n, x=decade)) + 
+  geom_bar(position=position_dodge(), stat="identity",color="black") +# ,position="stack"   #facet_grid(. ~ Country) +  
   scale_color_brewer(palette = "Paired") +
   # a_flat_fill() +
   labs(y='number of times',
        x='Decades',
-       title= 'Disaster Occurance (1960-2020)',
+       title= 'Disaster Occurance in SE Asia (1960-2020)',
        caption='source: EMDAT',
        fill='')
 
